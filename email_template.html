@@ -62,7 +62,7 @@
             {% for house in houses %}
             <tr>
                 <td><b>{{ loop.index }}</b></td> <!-- Row number -->
-                <td>{{ house.price }}</td>
+                <td>$CA {{ '{:,}'.format(house.price) }}</td>
                 <td>{{ house.address }}</td>
                 <td>{{ house.bedrooms }}</td>
                 <td>{{ house.bathrooms }}</td>

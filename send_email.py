@@ -19,9 +19,8 @@ WHERE (
     LCASE(address) LIKE '%ancaster%' OR
     LCASE(address) LIKE '%dundas%' OR
     LCASE(address) LIKE '%burlington%'
-    ) AND createdAt BETWEEN NOW() - INTERVAL 2 DAY AND NOW()
-    ORDER BY price
-    LIMIT 100
+    ) AND createdAt BETWEEN NOW() - INTERVAL 1 DAY AND NOW()
+    ORDER BY address
 """
 
 def render_email_template(template_name, context):

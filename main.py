@@ -20,7 +20,7 @@ login_url = 'https://realtor.ca/'
 def login():
     driver.get(login_url)
 
-    WebDriverWait(driver, 3).until(
+    WebDriverWait(driver, 30).until(
         ec.element_to_be_clickable((By.ID, 'headerSignInText'))
     ).click()
     WebDriverWait(driver, 3).until(
@@ -57,7 +57,7 @@ def search_houses(area_name: str) -> list:
     driver.find_element(By.XPATH, "//li[contains(text(), 'House')]").click()
     # Max price
     driver.find_element(By.ID, 'select2-ddlMaxPrice-container').click()
-    driver.find_element(By.XPATH, "//li[contains(text(), '1,800,000')]").click()
+    driver.find_element(By.XPATH, "//li[contains(text(), '1,500,000')]").click()
     # Click on search
     driver.find_element(By.ID, 'mapMoreFiltersSearchBtn').click()
 
