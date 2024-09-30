@@ -53,7 +53,6 @@
                 <th>Bedrooms</th>
                 <th>Bathrooms</th>
                 <th>Sq_ft</th>
-                <th>Image</th>
                 <th>Posting</th>
                 <th>Created At</th>
             </tr>
@@ -72,11 +71,10 @@
                 <td>{{ house.bathrooms }}</td>
                 <td>{{ house.sq_ft }}</td>
                 <td>
-                    <a href="{{ house.image }}" target="_blank">
+                    <a href="{{ house.url }}" target="_blank">
                         <img src="{{ house.image }}" alt="House Image"/>
                     </a>
                 </td>
-                <td><a href="{{ house.url }}" target="_blank" class="link">Link</a></td>
                 <td>{{ house.createdAt }}</td>
             </tr>
             {% endfor %}
