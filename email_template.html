@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .description {
+            white-space: pre-wrap;
+            padding: 8px;
+            background-color: #f9f9f9;
+        }
+        .image-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .image-link {
+            background-color: #4CAF50;
+            color: white;
+            padding: 3px 6px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        .image-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Price</th>
+                <th>Address</th>
+                <th>Bedrooms</th>
+                <th>Bathrooms</th>
+                <th>Sq_ft</th>
+                <th>Image</th>
+                <th>Posting</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for house in houses %}
+            <tr>
+                <td><b>{{ loop.index }}</b></td> <!-- Row number -->
+                <td>{{ house.price }}</td>
+                <td>{{ house.address }}</td>
+                <td>{{ house.bedrooms }}</td>
+                <td>{{ house.bathrooms }}</td>
+                <td>{{ house.sq_ft }}</td>
+                <td>
+                    <a href="{{ house.image }}" target="_blank">
+                        <img src="{{ house.image }}" alt="House Image"/>
+                    </a>
+                </td>
+                <td><a href="{{ house.url }}" target="_blank" class="link">Link</a></td>
+                <td>{{ house.createdAt }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
