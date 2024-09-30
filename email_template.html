@@ -63,7 +63,11 @@
             <tr>
                 <td><b>{{ loop.index }}</b></td> <!-- Row number -->
                 <td>$CA {{ '{:,}'.format(house.price) }}</td>
-                <td>{{ house.address }}</td>
+                <td>
+                    <a href="{{ house.google_maps_link }}" target="_blank">
+                        {{ house.address }}
+                    </a>
+                </td>
                 <td>{{ house.bedrooms }}</td>
                 <td>{{ house.bathrooms }}</td>
                 <td>{{ house.sq_ft }}</td>

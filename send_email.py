@@ -1,6 +1,7 @@
 import os
 import pymysql
 import gmail_script
+import urllib.parse
 from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader
 
@@ -14,13 +15,18 @@ SUBJECT = os.getenv('SUBJECT')
 connection = pymysql.connect(host=DB_HOST, user=DB_USER, passwd=DB_PASS, database='HouseMarket', connect_timeout=5)
 
 sql_houses = """
-SELECT price, address, bedrooms, bathrooms, sq_ft, image, url, createdAt, updatedAt FROM HouseMarket
+SELECT price, address, bedrooms, bathrooms, sq_ft, image, url, createdAt, updatedAt 
+FROM HouseMarket
 WHERE (
     LCASE(address) LIKE '%ancaster%' OR
     LCASE(address) LIKE '%dundas%' OR
     LCASE(address) LIKE '%burlington%'
-    ) AND createdAt BETWEEN NOW() - INTERVAL 1 DAY AND NOW()
-    ORDER BY address
+) 
+AND createdAt BETWEEN NOW() - INTERVAL 1 DAY AND NOW()
+ORDER BY  
+    TRIM(LOWER(SUBSTRING_INDEX(SUBSTRING_INDEX(address, ',', -2), ',', 1))),  -- Area
+    TRIM(LOWER(SUBSTRING_INDEX(SUBSTRING_INDEX(address, ',', 2), ',', -1))),  -- Street name
+    CAST(TRIM(SUBSTRING_INDEX(address, ',', 1)) AS UNSIGNED);                 -- House number
 """
 
 def render_email_template(template_name, context):
@@ -44,6 +50,7 @@ def send_email():
         context['houses'].append({
             "price": house[0],
             "address": house[1],
+            "google_maps_link": f"https://www.google.com/maps/search/?api=1&query={urllib.parse.quote(house[1])}",
             "bedrooms": house[2],
             "bathrooms": house[3],
             "sq_ft": house[4],
